@@ -8,7 +8,9 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous"/>
 	<style type="text/css" media="screen">
-		
+		span.error{
+			color: red;
+		}
 	</style>
 </head>
 <body>
@@ -44,11 +46,29 @@
 	        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 	    }
 	});
+	$("#form_search").validate({
+		onfocusout: false,
+		onkeyup: false,
+		onclick: false,
+		errorElement: 'span',
+        errorClass: 'error',
+		rules: {
+			"search_name": {
+				required: true
+			}
+		},
+		messages: {
+			"search_name": {
+				required: "Vui lòng thêm thông tin tìm kiếm"
+			},
+		}
+	});
 	$(document).ready(function(){
 		$(document).on('submit', '#form_search', function(e){
 			e.preventDefault();
-			var search_name = $('#form_search #search_name').val();
-			console.log(search_name);
+			var search_name = $('#form_search #search_name').val().trim();
+			$('#form_search #search_name').val(search_name);
+			$('#form_search').valid();
 			$.ajax({
                 url: '/search',
                 type: 'POST',
