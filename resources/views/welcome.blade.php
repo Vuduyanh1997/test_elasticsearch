@@ -79,7 +79,7 @@
                 </div>
             @endif
             <div class="top-right links">
-                <a href="{{ url('/search') }}">Search</a>
+                <a href="{{ url('/view-search') }}">Search</a>
             </div>
             <div class="content">
                 <div class="title m-b-md">

@@ -13,10 +13,6 @@ class SearchController extends Controller
      */
     public function index()
     {
-        $client = new \GuzzleHttp\Client();
-        $request = $client->get(env('APP_ELASTICSEARCH_URL') . '/bank/_search?pretty');
-        $content = $this->contentApi($request);
-        dd($content);
         return view('search');
     }
 
@@ -90,5 +86,20 @@ class SearchController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function search(Request $request){
+        $client = new \GuzzleHttp\Client();
+        $firstname = $request->search_name;
+        if ($firstname != '') {
+            $data = ["query"=> ["match"=> ["age"=> $firstname]],"size"=> 10,"sort"=> ["balance"=> ["order"=> "desc"]]];
+        }
+        
+        $request = $client->get(env('APP_ELASTICSEARCH_URL') . '/bank/_search?pretty', [
+            'headers' => ['Content-Type' => 'application/json'],
+            'body' => json_encode($data)
+        ]);
+        $content = $this->contentApi($request);
+        dd($content->hits->hits);
     }
 }
