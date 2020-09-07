@@ -13,7 +13,17 @@ class SearchController extends Controller
      */
     public function index()
     {
+        $client = new \GuzzleHttp\Client();
+        $request = $client->get(env('APP_ELASTICSEARCH_URL') . '/bank/_search?pretty');
+        $content = $this->contentApi($request);
+        dd($content);
         return view('search');
+    }
+
+    public function contentApi($request){
+        $data_body = $request->getBody();
+        $content = json_decode($data_body->getContents());
+        return $content;
     }
 
     /**
