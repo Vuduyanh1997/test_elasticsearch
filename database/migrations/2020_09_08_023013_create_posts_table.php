@@ -18,8 +18,7 @@ class CreatePostsTable extends Migration
             $table->string('title', 255)->nullable()->comment('Tiêu đề bài viết');
             $table->text('content')->nullable()->comment('Nội dung bài viết');
             $table->bigInteger('user_id')->nullable()->comment('id tác giả');
-            $table->tinyInteger('status')->default(0)->comment('Trạng thái bài viết: 0 - private, 1 -public');
-            $table->
+            $table->tinyInteger('status')->default(0)->comment('Trạng thái bài viết: 0 - private, 1 - public');
             $table->timestamps();
         });
     }
@@ -31,6 +30,6 @@ class CreatePostsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('banks');
+        Schema::dropIfExists('posts');
     }
 }
