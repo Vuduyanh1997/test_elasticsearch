@@ -35,6 +35,13 @@
 				</div>
 			</div>
 		</form>
+		<div class="row">
+			<div class="col-md-12">
+				<div id="view_result">
+					
+				</div>
+			</div>
+		</div>
 	</div>
 </body>
 </html>
@@ -74,9 +81,20 @@
                 type: 'POST',
                 data: {
                     search_name: search_name,
-                }
-            }).done(function(ketqua) {
-                
+                },
+                success: function(data) {
+                	var data = data.arr_banks;
+                	if(data.length > 0) {
+                		var txt = '';
+                		console.log(data);
+                		for (var i = 0; i < data.length; i++) {
+                			txt += '123';
+                		}
+                		$('#view_result').text(txt);
+                	} else {
+                		$('#view_result').text('');
+                	}
+			    },
             });
 		})
 	})

@@ -102,9 +102,21 @@ class SearchController extends Controller
         $content = $this->contentApi($request);
 
         $banks = $content->hits->hits;
-        
+        if (!empty($banks)) {
+            $arr_banks = $this->stdToArray($banks);
+        }
+        // dd($arr_banks);
         return response()->json([
-            'banks'  => $banks
+            'arr_banks'  => $arr_banks
         ]);
+    }
+    function stdToArray($obj){
+        $reaged = (array)$obj;
+        foreach($reaged as $key => $field){
+            if(is_object($field)){
+                $reaged[$key] = $this->stdToArray($field);
+            }
+        }
+        return $reaged;
     }
 }
