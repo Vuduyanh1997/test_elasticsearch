@@ -33,7 +33,7 @@
 			margin-top: 30px;
 		}
 		.element{
-			
+
 		}
 	</style>
 </head>
@@ -118,7 +118,6 @@
                 		var txt = '';
                 		for (var i = 0; i < data.length; i++) {
                 			var element = data[i];
-                			console.log(element['_source']['account_number']);
                 			txt += `<div class="element">
                 				`+element['_source']['account_number']+`
                 			</div>`;

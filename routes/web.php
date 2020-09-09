@@ -22,4 +22,5 @@ Route::post('/search', 'SearchController@search');
 Auth::routes();
 Route::middleware('auth')->group(function () {
 	Route::get('/home', 'HomeController@index')->name('home');
+	Route::get('/posts', 'PostController@index')->name('posts.index');
 });
