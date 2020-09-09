@@ -90,9 +90,23 @@ class SearchController extends Controller
 
     public function search(Request $request){
         $client = new \GuzzleHttp\Client();
-        $firstname = $request->search_name;
-        if ($firstname != '') {
-            $data = ["query"=> ["bool" => ["should" => [["match"=> ["firstname"=> $firstname]], ["match"=> ["lastname"=> $firstname]]]]],"size"=> 10,"sort"=> ["balance"=> ["order"=> "desc"]]];
+        $search = $request->search_name;
+        if ($search != '') {
+            $data = [
+                "query"=> [
+                    "multi_match" => [
+                        "query" => $search,
+                        "fields" => ["firstname^3", "lastname"],
+                        "fuzziness" => 2
+                    ]
+                ],
+                "size"=> 10,
+                "sort"=> [
+                    "balance"=> [
+                        "order" => "desc"
+                    ]
+                ]
+            ];
         }
         $request = $client->get(env('APP_ELASTICSEARCH_URL') . '/bank/_search?pretty', [
             'headers' => ['Content-Type' => 'application/json'],
@@ -105,7 +119,7 @@ class SearchController extends Controller
         if (!empty($banks)) {
             $arr_banks = $this->stdToArray($banks);
         }
-        // dd($arr_banks);
+        
         return response()->json([
             'arr_banks'  => $arr_banks
         ]);

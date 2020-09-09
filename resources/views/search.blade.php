@@ -2,51 +2,81 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="csrf-token" content="{{ csrf_token() }}" />
-	<title>Tìm kiếm</title>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous"/>
-	<style type="text/css" media="screen">
-		span.error{
-			color: red;
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- CSRF Token -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
+    <title>{{ config('app.name', 'Elasticsearch') }}</title>
+	<link rel="dns-prefetch" href="//fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+
+    <!-- Styles -->
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    {{-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"> --}}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous"/>
+    <style>
+    	span.error{
+            color: red;
+        }
+		#search_name{
+			width: 90%;
+			float: left;
+			line-height: 30px;
+		}
+		#search{
+			background: #e4e3e3;
+			width: 10%;
+			float: right;
+		}
+		#view_result{
+			margin-top: 30px;
+		}
+		.element{
+			
 		}
 	</style>
 </head>
 <body>
-	<div class="container">
-		<div class="row">
-			<div class="col-md-12">
-				<center><h1>Tìm kiếm</h1></center>
+	<div id="app">
+        <main class="py-4">
+            <div class="container">
+			    <div class="row justify-content-center">
+			        <div class="col-md-8">
+			        	<div class="col-md-12">
+							<center><h1>Tìm kiếm</h1></center>
+						</div>
+						<form method="POST" id="form_search">
+							<div class="row">
+								<div class="col-md-12" class="input_search">
+									<button type="submit" id="search" class="btn btn-md green"><i class="fas fa-search"></i></button>
+									<input type="text" id="search_name" name="search_name">
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-12">
+									<center>
+										
+									</center>
+								</div>
+							</div>
+						</form>
+						<div class="col-md-12">
+							<div id="view_result">
+								
+							</div>
+						</div>
+			        </div>
+			    </div>
 			</div>
-		</div>
-		<form action="" method="POST" id="form_search">
-			<div class="row">
-				<div class="col-md-12 form-group">
-					<label for="search_name">Nhập tên</label>
-					<input type="text" id="search_name" name="search_name" class="form-control">
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-12">
-					<center>
-						<button type="submit" id="search" class="btn btn-md green">Tìm kiếm</button>
-					</center>
-				</div>
-			</div>
-		</form>
-		<div class="row">
-			<div class="col-md-12">
-				<div id="view_result">
-					
-				</div>
-			</div>
-		</div>
-	</div>
+        </main>
+    </div>
 </body>
 </html>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/jquery.validate.min.js" integrity="sha512-UdIMMlVx0HEynClOIFSyOrPggomfhBKJE28LKl8yR3ghkgugPnG6iLfRfHwushZl1MOPSY6TsuBDGPK2X4zYKg==" crossorigin="anonymous"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/jquery.validate.min.js"></script>
+
 <script>
 	$.ajaxSetup({
 	    headers: {
@@ -86,13 +116,16 @@
                 	var data = data.arr_banks;
                 	if(data.length > 0) {
                 		var txt = '';
-                		console.log(data);
                 		for (var i = 0; i < data.length; i++) {
-                			txt += '123';
+                			var element = data[i];
+                			console.log(element['_source']['account_number']);
+                			txt += `<div class="element">
+                				`+element['_source']['account_number']+`
+                			</div>`;
                 		}
-                		$('#view_result').text(txt);
+                		$('#view_result').html(txt);
                 	} else {
-                		$('#view_result').text('');
+                		$('#view_result').html('');
                 	}
 			    },
             });

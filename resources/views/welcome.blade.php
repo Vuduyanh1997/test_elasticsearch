@@ -68,10 +68,10 @@
             @if (Route::has('login'))
                 <div class="top-right links">
                     @auth
-                        <a href="{{ url('/view-search') }}">Search</a>
+                        <a href="{{ url('/view-search') }}" target="_blank">Search</a>
                         <a href="{{ url('/home') }}">Home</a>
                     @else
-                        <a href="{{ url('/view-search') }}">Search</a>
+                        <a href="{{ url('/view-search') }}" target="_blank">Search</a>
                         <a href="{{ route('login') }}">Login</a>
 
                         @if (Route::has('register'))
