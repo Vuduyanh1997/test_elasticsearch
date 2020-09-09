@@ -22,7 +22,7 @@
   <!-- JQVMap -->
   <link rel="stylesheet" href="/plugins/jqvmap/jqvmap.min.css">
   <!-- Theme style -->
-  <link rel="stylesheet" href="dist/css/adminlte.min.css">
+  <link rel="stylesheet" href="/dist/css/adminlte.min.css">
   <!-- overlayScrollbars -->
   <link rel="stylesheet" href="/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
   <!-- Daterange picker -->
@@ -30,7 +30,26 @@
   <!-- summernote -->
   <link rel="stylesheet" href="/plugins/summernote/summernote-bs4.css">
   <!-- Google Font: Source Sans Pro -->
-  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">\
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" integrity="sha512-vKMx8UnXk60zUwyUnUPM3HbQo8QfmNx7+ltw8Pm5zLusl1XIfwcxo8DbWCqMGKaWeNxWA8yrx5v3SaVpMvR3CA==" crossorigin="anonymous" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.21/css/dataTables.bootstrap.min.css" integrity="sha512-BMbq2It2D3J17/C7aRklzOODG1IQ3+MHw3ifzBHMBwGO/0yUqYmsStgBjI0z5EYlaDEFnvYV7gNYdD3vFLRKsA==" crossorigin="anonymous" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-sweetalert/1.0.1/sweetalert.min.css" integrity="sha512-hwwdtOTYkQwW2sedIsbuP1h0mWeJe/hFOfsvNKpRB3CkRxq8EW7QMheec1Sgd8prYxGm1OM9OZcGW7/GUud5Fw==" crossorigin="anonymous" />
+  <style>
+    .avatar-xs {
+        width: 34px;
+        height: 34px;
+    }
+    #avatar {
+        border-radius: 10rem;
+        width: 38px;
+        height: 38px;
+    }
+    span.error{
+      color: red;
+    }
+  </style>
+
+  @yield('header')
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
@@ -39,18 +58,10 @@
   <nav class="main-header navbar navbar-expand navbar-white navbar-light">
     <!-- Left navbar links -->
     <ul class="navbar-nav">
-      <li class="nav-item">
-        <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
-      </li>
-      <li class="nav-item d-none d-sm-inline-block">
-        <a href="index3.html" class="nav-link">Home</a>
-      </li>
-      <li class="nav-item d-none d-sm-inline-block">
-        <a href="#" class="nav-link">Contact</a>
-      </li>
+      @yield('link')
     </ul>
 
-    <!-- SEARCH FORM -->
+    {{-- <!-- SEARCH FORM -->
     <form class="form-inline ml-3">
       <div class="input-group input-group-sm">
         <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
@@ -61,7 +72,7 @@
         </div>
       </div>
     </form>
-
+ --}}
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
       <li class="nav-item">
@@ -69,7 +80,20 @@
           <i class="fas fa-th-large"></i>
         </a>
       </li>
+
+      <li class="nav-item">
+        <span class="dropdown-toggle no-caret" data-toggle="dropdown">
+          <img src="https://st3.depositphotos.com/1767687/16607/v/450/depositphotos_166074422-stock-illustration-default-avatar-profile-icon-grey.jpg" alt="" id="avatar" class="avatar-xs">
+        </span>
+        <div class="dropdown-menu dropdown-menu-right">
+            <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();"><i class="fas fa-power-off"></i>&nbsp;&nbsp;Đăng xuất</a>
+            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                @csrf
+            </form>
+          </div>
+      </li>
     </ul>
+    
   </nav>
   <!-- /.navbar -->
 
@@ -93,10 +117,18 @@
                with font-awesome or any other icon font library -->
           
           <li class="nav-item">
-            <a href="pages/widgets.html" class="nav-link">
+            <a href="/posts" class="nav-link">
               <i class="nav-icon fas fa-th"></i>
               <p>
                 Bài viết
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="/view-search" class="nav-link">
+              <i class="fas fa-search"></i>
+              <p>
+                Tìm kiếm
               </p>
             </a>
           </li>
@@ -143,11 +175,12 @@
 <script src="/plugins/chart.js/Chart.min.js"></script>
 <!-- Sparkline -->
 <script src="/plugins/sparklines/sparkline.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-sweetalert/1.0.1/sweetalert.min.js" integrity="sha512-MqEDqB7me8klOYxXXQlB4LaNf9V9S0+sG1i8LtPOYmHqICuEZ9ZLbyV3qIfADg2UJcLyCm4fawNiFvnYbcBJ1w==" crossorigin="anonymous"></script>
 <!-- JQVMap -->
-<script src="/plugins/jqvmap/jquery.vmap.min.js"></script>
-<script src="/plugins/jqvmap/maps/jquery.vmap.usa.js"></script>
+{{-- <script src="/plugins/jqvmap/jquery.vmap.min.js"></script> --}}
+{{-- <script src="/plugins/jqvmap/maps/jquery.vmap.usa.js"></script> --}}
 <!-- jQuery Knob Chart -->
-<script src="/plugins/jquery-knob/jquery.knob.min.js"></script>
+{{-- <script src="/plugins/jquery-knob/jquery.knob.min.js"></script> --}}
 <!-- daterangepicker -->
 <script src="/plugins/moment/moment.min.js"></script>
 <script src="/plugins/daterangepicker/daterangepicker.js"></script>
@@ -157,12 +190,25 @@
 <script src="/plugins/summernote/summernote-bs4.min.js"></script>
 <!-- overlayScrollbars -->
 <script src="/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.21/js/jquery.dataTables.min.js"></script>
 <!-- AdminLTE App -->
-<script src="/dist/js/adminlte.js"></script>
+{{-- <script src="/dist/js/adminlte.js"></script> --}}
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-<script src="/dist/js/pages/dashboard.js"></script>
+{{-- <script src="/dist/js/pages/dashboard.js"></script> --}}
 <!-- AdminLTE for demo purposes -->
-<script src="/dist/js/demo.js"></script>
+{{-- <script src="/dist/js/demo.js"></script> --}}
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/jquery.validate.min.js"></script>
+<script>
+  $.ajaxSetup({
+      headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      }
+  });
+</script>
+
+@yield('footer')
 
 </body>
 </html>
