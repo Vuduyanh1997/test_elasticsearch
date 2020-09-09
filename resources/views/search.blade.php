@@ -33,7 +33,27 @@
 			margin-top: 30px;
 		}
 		.element{
-
+			padding: 10px 10px 10px 10px;
+			background-color: #e9e9ea;
+			margin-top: 5px;
+			border-bottom: 1px solid gray;
+		}
+		.element .title{
+			font-size: 20px;
+			line-height: 1.3;
+			color: blue;
+			cursor: pointer;
+		}
+		.element .title:hover{
+			text-decoration: underline;
+		}
+		.element .content{
+			font-size: 14px;
+			color: black;
+		}
+		.element .user_name{
+			font-size: 12px;
+			color: gray;
 		}
 	</style>
 </head>
@@ -78,6 +98,11 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/jquery.validate.min.js"></script>
 
 <script>
+	$.ajaxSetup({
+	    headers: {
+	        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+	    }
+	});
 	$("#form_search").validate({
 		onfocusout: false,
 		onkeyup: false,
@@ -114,7 +139,15 @@
                 		for (var i = 0; i < data.length; i++) {
                 			var element = data[i];
                 			txt += `<div class="element">
-                				`+element['_source']['account_number']+`
+                				<div class="title">
+                					`+element['_source']['title']+`
+                				</div>
+                				<div class="content">
+                					`+element['_source']['content']+`
+                				</div>
+                				<div class="user_name">
+                					<span>Tác giả: `+element['_source']['user_name']+` - Thời gian: `+element['_source']['created_at']+`</span>
+                				</div>
                 			</div>`;
                 		}
                 		$('#view_result').html(txt);

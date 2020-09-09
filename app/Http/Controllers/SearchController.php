@@ -96,25 +96,25 @@ class SearchController extends Controller
                 "query"=> [
                     "multi_match" => [
                         "query" => $search,
-                        "fields" => ["firstname^3", "lastname"],
-                        "fuzziness" => 2
+                        "fields" => ["title^3", "content^2", "user_name"],
+                        "fuzziness" => 1
                     ]
                 ],
                 "size"=> 10,
-                "sort"=> [
-                    "balance"=> [
-                        "order" => "desc"
-                    ]
-                ]
+                // "sort"=> [
+                //     "created_at"=> [
+                //         "order" => "desc"
+                //     ]
+                // ]
             ];
         }
-        $request = $client->get(env('APP_ELASTICSEARCH_URL') . '/bank/_search?pretty', [
+        $request = $client->get(env('APP_ELASTICSEARCH_URL') . '/posts/_search?pretty', [
             'headers' => ['Content-Type' => 'application/json'],
             'body' => json_encode($data)
         ]);
 
         $content = $this->contentApi($request);
-
+        $arr_banks = null;
         $banks = $content->hits->hits;
         if (!empty($banks)) {
             $arr_banks = $this->stdToArray($banks);
