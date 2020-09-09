@@ -91,6 +91,7 @@ class SearchController extends Controller
     public function search(Request $request){
         $client = new \GuzzleHttp\Client();
         $search = $request->search_name;
+        $count_show = 1000;
         if ($search != '') {
             $data = [
                 "query"=> [
@@ -100,7 +101,7 @@ class SearchController extends Controller
                         "fuzziness" => 1
                     ]
                 ],
-                "size"=> 10,
+                "size"=> $count_show,
                 // "sort"=> [
                 //     "created_at"=> [
                 //         "order" => "desc"
@@ -112,16 +113,25 @@ class SearchController extends Controller
             'headers' => ['Content-Type' => 'application/json'],
             'body' => json_encode($data)
         ]);
-
         $content = $this->contentApi($request);
         $arr_banks = null;
+
+        $count = $content->hits->total->value;
+        $took = $content->took;
+        if ($count_show > $count) {
+            $count_show = $count;
+        }
+
         $banks = $content->hits->hits;
         if (!empty($banks)) {
             $arr_banks = $this->stdToArray($banks);
         }
         
         return response()->json([
-            'arr_banks'  => $arr_banks
+            'arr_banks'   => $arr_banks,
+            'count'       => $count,
+            'count_show'  => $count_show,
+            'took'        => $took/1000
         ]);
     }
     function stdToArray($obj){

@@ -30,11 +30,11 @@
 			float: right;
 		}
 		#view_result{
-			margin-top: 30px;
+			/*margin-top: 35px;*/
 		}
 		.element{
 			padding: 10px 10px 10px 10px;
-			background-color: #e9e9ea;
+			background-color: #f6f6f6;
 			margin-top: 5px;
 			border-bottom: 1px solid gray;
 		}
@@ -55,6 +55,9 @@
 			font-size: 12px;
 			color: gray;
 		}
+		#count{
+			padding-top: 20px;
+		}
 	</style>
 </head>
 <body>
@@ -62,7 +65,7 @@
         <main class="py-4">
             <div class="container">
 			    <div class="row justify-content-center">
-			        <div class="col-md-8">
+			        <div class="col-md-10">
 			        	<div class="col-md-12">
 							<center><h1>Tìm kiếm</h1></center>
 						</div>
@@ -82,6 +85,9 @@
 							</div>
 						</form>
 						<div class="col-md-12">
+							<div id="count">
+								
+							</div>
 							<div id="view_result">
 								
 							</div>
@@ -133,8 +139,12 @@
                     search_name: search_name,
                 },
                 success: function(data) {
+                	var count = data.count;
+                	var count_show = data.count_show;
+                	var took = data.took;
                 	var data = data.arr_banks;
-                	if(data.length > 0) {
+                	$('#count').html(`<span>Khoảng `+count +` kết quả (`+took+` giây)</span>`);
+                	if(data != null) {
                 		var txt = '';
                 		for (var i = 0; i < data.length; i++) {
                 			var element = data[i];
