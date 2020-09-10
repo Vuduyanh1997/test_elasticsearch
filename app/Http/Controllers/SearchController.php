@@ -91,25 +91,25 @@ class SearchController extends Controller
     public function search(Request $request){
         $client = new \GuzzleHttp\Client();
         $search = $request->search_name;
-        $count_show = 1000;
+        $count_show = env('COUNT_SHOW', 1000);
         if ($search != '') {
             $data = [
-                "query"=> [
+                "query" => [
                     "multi_match" => [
                         "query" => $search,
                         "fields" => ["title^3", "content^2", "user_name"],
                         "fuzziness" => 1
                     ]
                 ],
-                "size"=> $count_show,
-                // "sort"=> [
-                //     "created_at"=> [
-                //         "order" => "desc"
-                //     ]
-                // ]
+                "size" => $count_show,
+                "sort" => [
+                    "_score" => [
+                        "order" => "desc"
+                    ]
+                ]
             ];
         }
-        $request = $client->get(env('APP_ELASTICSEARCH_URL') . '/posts/_search?pretty', [
+        $request = $client->get(env('APP_ELASTICSEARCH_URL', 'http://localhost:9200') . '/posts/_search?pretty', [
             'headers' => ['Content-Type' => 'application/json'],
             'body' => json_encode($data)
         ]);

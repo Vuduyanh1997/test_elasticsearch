@@ -43,6 +43,7 @@
 			line-height: 1.3;
 			color: blue;
 			cursor: pointer;
+			font-weight: 600;
 		}
 		.element .title:hover{
 			text-decoration: underline;
@@ -74,13 +75,6 @@
 								<div class="col-md-12" class="input_search">
 									<button type="submit" id="search" class="btn btn-md green"><i class="fas fa-search"></i></button>
 									<input type="text" id="search_name" name="search_name">
-								</div>
-							</div>
-							<div class="row">
-								<div class="col-md-12">
-									<center>
-										
-									</center>
 								</div>
 							</div>
 						</form>
