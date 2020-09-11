@@ -98,7 +98,8 @@ class SearchController extends Controller
                     "multi_match" => [
                         "query" => $search,
                         "fields" => ["title^3", "content^2", "user_name"],
-                        "fuzziness" => 1
+                        "minimum_should_match" => "60%",
+                        "fuzziness" => "AUTO"
                     ]
                 ],
                 "size" => $count_show,

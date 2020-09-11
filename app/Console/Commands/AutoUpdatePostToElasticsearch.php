@@ -56,7 +56,7 @@ class AutoUpdatePostToElasticsearch extends Command
                 "title"        => $post->title,
                 "content"      => $post->content,
                 "user_name"    => $user->name,
-                "created_at"   =>  date('H:i | d/m/Y', strtotime($user->created_at))
+                "created_at"   =>  date('H:i | d/m/Y', strtotime($post->created_at))
             ];
 
             $client->put(env('APP_ELASTICSEARCH_URL') . '/posts/_doc/' . $post->id .'?pretty', [

@@ -171,7 +171,7 @@ class PostController extends Controller
     }
 
     public function getList(Request $request){
-        $posts = Post::where('user_id', Auth::user()->id)->get();
+        $posts = Post::where('user_id', Auth::user()->id)->orderBy('created_at', 'desc')->get();
         if ($posts->count() > 0) {
             foreach ($posts as $key => $post) {
                 $user = User::where('id', $post->user_id)->first();

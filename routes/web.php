@@ -13,10 +13,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-Route::get('/view-search', 'SearchController@index');
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+Route::get('/', 'SearchController@index');
 Route::post('/search', 'SearchController@search');
 
 Auth::routes();

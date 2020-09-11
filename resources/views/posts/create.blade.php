@@ -54,7 +54,7 @@
 			},
 			messages: {
 				"title": {
-					required: "Vui lòng thêm tiêu dề cho bài viết!",
+					required: "Vui lòng thêm tiêu đề cho bài viết!",
 					maxlength: "Vui lòng nhập tối đa 255 ký tự!",
 					minlength: "Vui lòng nhập tối thiểu 5 ký tự!"
 				},

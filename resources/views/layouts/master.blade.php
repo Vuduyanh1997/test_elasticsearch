@@ -125,7 +125,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="/view-search" class="nav-link" target="_blank">
+            <a href="/" class="nav-link" target="_blank">
               <i class="fas fa-search"></i>
               <p>
                 Tìm kiếm

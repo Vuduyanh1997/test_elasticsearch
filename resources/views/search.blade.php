@@ -33,10 +33,11 @@
 			/*margin-top: 35px;*/
 		}
 		.element{
+			padding-bottom: 10px;
 			padding: 10px 10px 10px 10px;
-			background-color: #f6f6f6;
+			/*background-color: #f6f6f6;*/
 			margin-top: 5px;
-			border-bottom: 1px solid gray;
+			border-bottom: 1px solid #d1d1d1;
 		}
 		.element .title{
 			font-size: 20px;
@@ -59,26 +60,81 @@
 		#count{
 			padding-top: 20px;
 		}
+		#header{
+			border-bottom: 1px solid #ebebeb;
+			padding-bottom: 20px;
+		}
+		.py-4{
+			padding-top: 0px !important;
+		}
+		#main{
+			/*background-color: #f4f4f4;*/
+			padding-top: 20px;
+			min-height: 615px;
+		}
+
+	    .avatar-xs {
+	        width: 34px;
+	        height: 34px;
+	    }
+	    #avatar {
+	        border-radius: 10rem;
+	        width: 38px;
+	        height: 38px;
+	    }
+	    li{
+	    	list-style-type: none;
+	    }
+	    .show{
+	    	display: block;
+	    }
+	    .hide{
+	    	display: none;
+	    }
+	    #drop_menu{
+	    	position: absolute;
+	    }
 	</style>
 </head>
 <body>
 	<div id="app">
         <main class="py-4">
-            <div class="container">
+            <div class="container" id="main">
 			    <div class="row justify-content-center">
-			        <div class="col-md-10">
-			        	<div class="col-md-12">
-							<center><h1>Tìm kiếm</h1></center>
-						</div>
-						<form method="POST" id="form_search">
-							<div class="row">
-								<div class="col-md-12" class="input_search">
+			        <div class="col-md-12">
+						<div class="row" id="header">
+							<div class="col-md-2">
+								<img src="https://techvccloud.mediacdn.vn/zoom/600_315/2018/10/15/elasticsearch-1539570535721747539902-0-50-832-1531-crop-15395705411511820530305.png" alt="logo" style="width: 100px;">
+							</div>
+							
+							<div class="col-md-8" class="input_search" style="padding-top: 10px;">
+								<form method="POST" id="form_search">
 									<button type="submit" id="search" class="btn btn-md green"><i class="fas fa-search"></i></button>
 									<input type="text" id="search_name" name="search_name">
-								</div>
+								</form>
 							</div>
-						</form>
-						<div class="col-md-12">
+							<div class="col-md-2" style="padding-top: 10px;">
+								@if (Auth::check())
+									<ul class="navbar-nav ml-auto" style="float: right !important;">
+										<li class="nav-item">
+									        <span class="dropdown-toggle no-caret" data-toggle="dropdown" id="drop">
+									          <img src="https://st3.depositphotos.com/1767687/16607/v/450/depositphotos_166074422-stock-illustration-default-avatar-profile-icon-grey.jpg" alt="" id="avatar" class="avatar-xs">
+									        </span>
+									        <div class="dropdown-menu dropdown-menu-right" id="drop_menu">
+									        	<a href="/home" class="dropdown-item"><i class="fas fa-home"></i>&nbsp;&nbsp;Trang cá nhân</a>
+									            <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();"><i class="fas fa-power-off"></i>&nbsp;&nbsp;Đăng xuất</a>
+									            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+									                @csrf
+									            </form>
+									        </div>
+									    </li>
+									</ul>
+								@else
+									<a class="btn btn-success btn-md" href="/login"  style="float: right !important;">Đăng nhập</a>
+								@endif
+							</div>
+						</div>
+						<div class="col-md-9">
 							<div id="count">
 								
 							</div>
@@ -162,4 +218,12 @@
             });
 		})
 	})
+	$('#drop').on('click', function(){
+		if ($('#drop_menu').hasClass('show')){
+			$('#drop_menu').removeClass('show').addClass('hide');
+		} else {
+			$('#drop_menu').removeClass('hide').addClass('show');
+		}
+	})
+
 </script>

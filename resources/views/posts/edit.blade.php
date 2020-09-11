@@ -50,7 +50,7 @@
 			},
 			messages: {
 				"content": {
-					required: "Vui lòng thêm nội dung cho bài viết!",
+					required: "Vui lòng nhập nội dung cho bài viết!",
 					minlength: "Vui lòng nhập tối thiểu 10 ký tự!"
 				}
 			}
