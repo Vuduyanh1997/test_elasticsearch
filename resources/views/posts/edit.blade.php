@@ -20,7 +20,7 @@
 				<input type="text" name="title" id="title" class="form-control" placeholder="Tiêu đề" value="{{$post->title}}" disabled="true">
 			</div>
 			<div class="form-group">
-				<label for="title">Nội dung</label>
+				<label for="content">Nội dung</label>
 				<textarea name="content" id="content" rows="5" class="form-control">{{$post->content}}</textarea>
 			</div>
 			<div class="form-group">

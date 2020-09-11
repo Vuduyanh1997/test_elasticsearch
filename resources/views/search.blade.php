@@ -104,7 +104,7 @@
 			        <div class="col-md-12">
 						<div class="row" id="header">
 							<div class="col-md-2">
-								<img src="https://techvccloud.mediacdn.vn/zoom/600_315/2018/10/15/elasticsearch-1539570535721747539902-0-50-832-1531-crop-15395705411511820530305.png" alt="logo" style="width: 100px;">
+								<a href="/"><img src="https://techvccloud.mediacdn.vn/zoom/600_315/2018/10/15/elasticsearch-1539570535721747539902-0-50-832-1531-crop-15395705411511820530305.png" alt="logo" style="width: 100px;"></a>
 							</div>
 							
 							<div class="col-md-8" class="input_search" style="padding-top: 10px;">
