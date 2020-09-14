@@ -200,10 +200,10 @@
                 			var element = data[i];
                 			txt += `<div class="element">
                 				<div class="title">
-                					`+element['_source']['title']+`
+                					<a href="/post/`+element['_source']['slug']+`" target="_blank">`+element['_source']['title']+`</a>
                 				</div>
                 				<div class="content">
-                					`+element['_source']['content']+`
+                					`+element['_source']['short_content']+`
                 				</div>
                 				<div class="user_name">
                 					<span>Tác giả: `+element['_source']['user_name']+` - Thời gian: `+element['_source']['created_at']+`</span>

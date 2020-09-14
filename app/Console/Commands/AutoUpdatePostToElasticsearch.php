@@ -51,12 +51,14 @@ class AutoUpdatePostToElasticsearch extends Command
             $user = User::where('id', $post->user_id)->first();
 
             $data = [
-                "id"           => $post->id,
-                "slug"         => $post->slug,
-                "title"        => $post->title,
-                "content"      => $post->content,
-                "user_name"    => $user->name,
-                "created_at"   =>  date('H:i | d/m/Y', strtotime($post->created_at))
+                "id"             => $post->id,
+                "slug"           => $post->slug,
+                "title"          => $post->title,
+                "content"        => $post->content,
+                "short_content"  => $post->short_content,
+                "main_content"   => $post->main_content,
+                "user_name"      => $user->name,
+                "created_at"     => date('H:i | d/m/Y', strtotime($post->created_at))
             ];
 
             $client->put(env('APP_ELASTICSEARCH_URL') . '/posts/_doc/' . $post->id .'?pretty', [

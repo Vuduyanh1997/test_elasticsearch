@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Route;
 //     return view('welcome');
 // });
 Route::get('/', 'SearchController@index');
+Route::get('/post/{slug}', 'SearchController@showContent')->name('slug');
 Route::post('/search', 'SearchController@search');
 
 Auth::routes();

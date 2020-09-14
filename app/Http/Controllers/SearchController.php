@@ -3,6 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Post;
+use App\User;
+use Illuminate\Support\Str;
+use Auth;
+use DB;
 
 class SearchController extends Controller
 {
@@ -97,7 +102,7 @@ class SearchController extends Controller
                 "query" => [
                     "multi_match" => [
                         "query" => $search,
-                        "fields" => ["title^3", "content^2", "user_name"],
+                        "fields" => ["title^3", "short_content^2"],
                         "minimum_should_match" => "60%",
                         "fuzziness" => "AUTO"
                     ]
@@ -143,5 +148,22 @@ class SearchController extends Controller
             }
         }
         return $reaged;
+    }
+
+    public function showContent($slug){
+        $post = Post::where('slug', $slug)->where('status', 1)->first();
+        if ($post == null) {
+            abort(404);
+        }
+        $user = User::where('id', $post->user_id)->first();
+        if ($user == null) {
+            $post->user_name = "Không tồn tại";
+        } else {
+            $post->user_name = $user->name;
+        }
+        $post->time = date('H:i | d/m/Y', strtotime($post->created_at));
+        return view('posts.show_content', [
+            'post'  => $post
+        ]);
     }
 }
