@@ -42,7 +42,7 @@ class AutoUpdatePostToElasticsearch extends Command
      */
     public function handle()
     {
-        $posts = Post::all();
+        $posts = Post::where('status', 1)->orderBy('created_at', 'desc')->get();
 
         $client = new \GuzzleHttp\Client();
         $client->delete(env('APP_ELASTICSEARCH_URL') . '/posts');

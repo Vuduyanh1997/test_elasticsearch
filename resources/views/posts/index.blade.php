@@ -44,7 +44,7 @@
         ordering: false,
         order: [], 
         pageLength: 30,
-        lengthMenu: [[30, 50, 100, 200, 500], [30, 50, 100, 200, 500]],
+        lengthMenu: [[5, 30, 50, 100, 200, 500], [5, 30, 50, 100, 200, 500]],
         ajax: {
             type: 'POST',
             url: '/posts/list',

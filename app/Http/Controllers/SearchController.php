@@ -97,12 +97,13 @@ class SearchController extends Controller
         $client = new \GuzzleHttp\Client();
         $search = $request->search_name;
         $count_show = env('COUNT_SHOW', 1000);
+
         if ($search != '') {
             $data = [
                 "query" => [
                     "multi_match" => [
                         "query" => $search,
-                        "fields" => ["title^3", "short_content^2"],
+                        "fields" => ["title^3", "short_content"],
                         "minimum_should_match" => "60%",
                         "fuzziness" => "AUTO"
                     ]
@@ -115,10 +116,12 @@ class SearchController extends Controller
                 ]
             ];
         }
+
         $request = $client->get(env('APP_ELASTICSEARCH_URL', 'http://localhost:9200') . '/posts/_search?pretty', [
-            'headers' => ['Content-Type' => 'application/json'],
-            'body' => json_encode($data)
+            'headers'  => ['Content-Type' => 'application/json'],
+            'body'     => json_encode($data)
         ]);
+
         $content = $this->contentApi($request);
         $arr_banks = null;
 
