@@ -18,10 +18,10 @@
     	body {
 		    line-height: 1;
 		    position: relative;
-		    font-family: Arial, sans-serif;
+		    /*font-family: Arial, sans-serif;*/
 		    font-size: 12px;
 		    overflow: visible !important;
-		    font-family: 'Noto Serif',serif;
+		    /*font-family: 'Noto Serif',serif;*/
 		}
     	.title{
     		margin-top: 30px !important;
@@ -29,6 +29,7 @@
     		text-align: center;
     		font-weight: 700;
     		line-height: 1.5;
+		    font-family: 'Noto Serif',serif;
     	}
     	.title h1{
     		font-size: 45px;
@@ -40,6 +41,7 @@
 		    font-size: 1.1rem;
 		    line-height: 1.6;
 		    font-weight: 700;
+		    font-family: 'Noto Serif',serif;
     	}
     	.content{
     		font-size: 1.1rem;
@@ -49,6 +51,7 @@
     	.author{
     		margin-top: 10px;
     		margin-bottom: 10px;
+		    font-family: 'Noto Serif',serif;
     	}
     	.author span{
     		margin-right: 10px;
